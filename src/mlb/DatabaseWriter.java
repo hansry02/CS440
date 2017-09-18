@@ -59,6 +59,10 @@ public class DatabaseWriter {
             Scanner fs = new Scanner(new File(filename));
             while (fs.hasNextLine()) {
                 // TODO: Parse each line into an object of type Address and add it to the ArrayList
+                
+                String[] team = fs.nextLine().split("\t");
+                Address address = new Address(team[0], team[1], team[2], team[3], team[4], team[5], team[6], team[7]);
+                addressBook.add(address);
                 fs.nextLine();
             }
         } catch (IOException ex) {
@@ -69,9 +73,21 @@ public class DatabaseWriter {
     }
     public ArrayList<Player> readPlayerFromCsv(String filename) {
         ArrayList<Player> roster = new ArrayList<>();
-        CSVReader reader = null;
+        //CSVReader reader = null;
         // TODO: Read the CSV file, create an object of type Player from each line and add it to the ArrayList
-        
+        try {
+            CSVReader reader = new CSVReader(new FileReader(filename));
+            String [] nextLine;
+            while ((nextLine = reader.readNext()) != null) {
+                //String [] playerObj = reader.readNext();
+                //code
+                Player player = new Player(nextLine[0], nextLine[1], nextLine[2], nextLine[3]);
+                roster.add(player);
+            }
+        }
+        catch (IOException ex) {
+            Logger.getLogger(DatabaseReader.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return roster;
     }
     /**

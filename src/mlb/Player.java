@@ -50,6 +50,8 @@ public class Player {
     @Override
     public String toString() {
         // TODO: Implement this method
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
+        String s = this.name + " plays for " + this.team;
+        return s;
     }
 }

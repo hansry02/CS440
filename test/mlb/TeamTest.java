@@ -211,6 +211,8 @@ public class TeamTest {
                         + "luther.edu\n"
                         + "Roster size: 2";
         String result = instance.toString();
+        System.out.println(expResult);
+        System.out.println(result);
         assertEquals(expResult, result);
     }
     
