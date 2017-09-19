@@ -165,11 +165,18 @@ public class DatabaseWriter {
         Connection db_connection = DriverManager.getConnection(SQLITEDBPATH + db_filename);
         db_connection.createStatement().execute("PRAGMA foreign_keys = ON;");
         // TODO: Write an SQL statement to insert a new team into a table
-        String sql = "";
+        String sql = "INSERT INTO team(id,abbr,name,conference,division,logo) VALUES (?,?,?,?,?,?);";
         for (Team team: league) {
             PreparedStatement statement_prepared = db_connection.prepareStatement(sql);
             // TODO: match parameters of the SQL statement and team id, abbreviation, name, conference, division, and logo
+            statement_prepared.setString(1, team.getId());
+            statement_prepared.setString(2, team.getAbbreviation());
+            statement_prepared.setString(3, team.getName());
+            statement_prepared.setString(4, team.getConference());
+            statement_prepared.setString(5, team.getDivision());
+            statement_prepared.setBytes(6, team.getLogo());
             statement_prepared.executeUpdate();
+            statement_prepared.close();
         }
         
         db_connection.close();
@@ -184,10 +191,18 @@ public class DatabaseWriter {
         db_connection.createStatement().execute("PRAGMA foreign_keys = ON;");
         for (Address address: addressBook) {
             // TODO: Write an SQL statement to insert a new address into a table
-            String sql = "";
+            String sql = "INSERT INTO address(site,street,city,state,zip,phone,url) VALUES (?,?,?,?,?,?,?);";
             PreparedStatement statement_prepared = db_connection.prepareStatement(sql);
             // TODO: match parameters of the SQL statement and address site, street, city, state, zip, phone, and url
+            statement_prepared.setString(1, address.getSite());
+            statement_prepared.setString(2, address.getStreet());
+            statement_prepared.setString(3, address.getCity());
+            statement_prepared.setString(4, address.getState());
+            statement_prepared.setString(5, address.getZip());
+            statement_prepared.setString(6, address.getPhone());
+            statement_prepared.setString(7, address.getUrl());
             statement_prepared.executeUpdate();
+            statement_prepared.close();
         }
         
         db_connection.close();
@@ -202,10 +217,15 @@ public class DatabaseWriter {
         db_connection.createStatement().execute("PRAGMA foreign_keys = ON;");
         for (Player player: roster) {
             // TODO: Write an SQL statement to insert a new player into a table
-            String sql = "";
+            String sql = "INSERT INTO address(id,name,position) VALUES (?,?,?);";
             PreparedStatement statement_prepared = db_connection.prepareStatement(sql);
             // TODO: match parameters of the SQL statement and player id, name, position
+            statement_prepared.setString(1, player.getId());
+            statement_prepared.setString(2, player.getName());
+            //statement_prepared.setString(3, player.getTeam());
+            statement_prepared.setString(3, player.getPosition());
             statement_prepared.executeUpdate();
+            statement_prepared.close();
         }
         
         db_connection.close();
